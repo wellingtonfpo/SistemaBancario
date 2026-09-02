@@ -3,7 +3,7 @@ package modelos;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class Transacao extends Object {
+public class Transacao {
     private String tipo;
     private double valor;
     private String contaRelacionada;

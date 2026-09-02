@@ -5,35 +5,23 @@ import java.util.List;
 import java.util.UUID;
 
 public abstract class Conta {
-    protected String numero;
+    protected String numeroConta;
     protected String titular;
     protected double saldo;
-    protected List<Transacao> historico; 
-    
+    protected List<Transacao> historico;
+
     public Conta(String titular, double saldo) {
-        this.numero = this.gerarNumeroConta();
+        this.numeroConta = this.gerarNumeroConta();
         this.titular = titular;
         this.saldo = saldo;
         this.historico = new ArrayList<>();
     }
 
-    public String gerarNumeroConta() {
+    private String gerarNumeroConta() {
         return UUID.randomUUID()
-            .toString()
-            .substring(0, 8)
-            .toUpperCase();
-    }
-
-    public String getNumero() {
-        return numero;
-    }
-
-    public String getTitular() {
-        return titular;
-    }
-
-    public double getSaldo() {
-        return saldo;
+                .toString()
+                .substring(0, 8)
+                .toUpperCase();
     }
 
     public void depositar(double valor) {
@@ -55,7 +43,7 @@ public abstract class Conta {
         System.out.printf("EXTRATO = %s%n", this.getClass().getSimpleName());
         System.out.println("=".repeat(70));
         System.out.printf("Titular: %s%n ", this.titular);
-        System.out.printf("Número da Conta: %s%n ", this.numero);
+        System.out.printf("Número da Conta: %s%n ", this.numeroConta);
         System.out.printf("Saldo Atual: %.2f%n ", this.saldo);
         System.out.println("-".repeat(70));
 
@@ -71,6 +59,45 @@ public abstract class Conta {
 
     public List<Transacao> exibirHistorico() {
         return this.historico;
+    }
+
+    public void transferenciaPix(Conta contaDestino, double valor) {
+        if (valor <= 0) {
+            System.out.println("Erro: O valor da transferencia deve ser maior que zero!");
+            return;
+        }
+
+        if (valor > this.saldo) {
+            System.out.println("Erro: Saldo insuficiente!");
+            return;
+        }
+
+        this.saldo -= valor;
+        registrarTransacao("PIX ENVIADO", -valor, contaDestino.numeroConta);
+
+        contaDestino.saldo += valor;
+        contaDestino.registrarTransacao("PIX RECEBIDO", valor, this.numeroConta);
+
+        System.out.printf(
+            "Transferencia Pix de R$ %.2f para %s realizado com sucesso!%n", 
+                valor, contaDestino.numeroConta);
+    }
+
+    public void exibirInformacoes() {
+        System.out.printf("%s - Titular: %s | Conta: %s | Saldo: %.2f%n",
+            this.getClass().getSimpleName(), this.titular, this.numeroConta, this.saldo);
+    }
+
+    public String getNumeroConta() {
+        return numeroConta;
+    }
+
+    public String getTitular() {
+        return titular;
+    }
+
+    public double getSaldo() {
+        return saldo;
     }
 
     abstract public void sacar(double valor);
