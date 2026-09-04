@@ -30,7 +30,8 @@ public abstract class Conta {
             return;
         }
         this.saldo += valor;
-        System.out.printf("DEPÓSITO de R$ %.2f realizado com sucesso!");
+        this.registrarTransacao("DEPÓSITO", valor, null);
+        System.out.printf("DEPÓSITO de R$ %.2f realizado com sucesso!", valor);
     }
 
     protected void registrarTransacao(String tipo, double valor, String contaRelacionada) {
@@ -39,13 +40,13 @@ public abstract class Conta {
     }
 
     public void extrato() {
-        System.out.println("\n" + "=".repeat(70));
+        System.out.println("\n" + "=".repeat(100));
         System.out.printf("EXTRATO = %s%n", this.getClass().getSimpleName());
-        System.out.println("=".repeat(70));
-        System.out.printf("Titular: %s%n ", this.titular);
-        System.out.printf("Número da Conta: %s%n ", this.numeroConta);
-        System.out.printf("Saldo Atual: %.2f%n ", this.saldo);
-        System.out.println("-".repeat(70));
+        System.out.println("=".repeat(100));
+        System.out.printf("Titular: %s%n", this.titular);
+        System.out.printf("Número da Conta: %s%n", this.numeroConta);
+        System.out.printf("Saldo Atual: %.2f%n", this.saldo);
+        System.out.println("-".repeat(100));
 
         if (historico.isEmpty()) {
             System.out.println("Nenhuma transação registrada.");
@@ -54,7 +55,7 @@ public abstract class Conta {
                 System.out.println(t);
             }
         }
-        System.out.println("\n" + "=".repeat(70));
+        System.out.println("\n" + "=".repeat(100));
     }
 
     public List<Transacao> exibirHistorico() {
