@@ -9,18 +9,20 @@ public class ContaCorrente extends Conta {
     }
 
     public void sacar(double valor) {
-        if (getSaldo() < 0) {
-            System.out.println("Saldo insuficiente!");
+        if (this.saldo < 0) {
+            System.out.println("ERROR: Saldo insuficiente!");
             return;
         }
 
-        double saldoDisponivel = getSaldo() + this.limite;
+        double saldoComLimite = this.saldo + this.limite;
 
-        if (valor > saldoDisponivel) {
-            System.out.println("Saldo insuficiente!");
+        if (valor > saldoComLimite) {
+            System.out.println("ERROR: Saldo insuficiente!");
             return;
         }
 
-        this.saldo -= valor;   
+        this.saldo -= valor;
+        this.registrarTransacao("SAQUE", -valor, null);
+        System.out.printf("Saque de R$ %.2f realizado com sucesso!", valor);
     }
 }

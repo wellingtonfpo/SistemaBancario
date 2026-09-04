@@ -21,7 +21,6 @@ public class ContaPoupanca extends Conta {
 
         this.saldo -= valor;
         this.registrarTransacao("SAQUE", -valor, null);
-        System.out.printf("Saque de R$ %.2f realizado com sucesso!", valor);
     }
 
     public void aplicarRendimento() {

@@ -31,7 +31,6 @@ public abstract class Conta {
         }
         this.saldo += valor;
         this.registrarTransacao("DEPÓSITO", valor, null);
-        System.out.printf("DEPÓSITO de R$ %.2f realizado com sucesso!", valor);
     }
 
     protected void registrarTransacao(String tipo, double valor, String contaRelacionada) {
@@ -78,10 +77,6 @@ public abstract class Conta {
 
         contaDestino.saldo += valor;
         contaDestino.registrarTransacao("PIX RECEBIDO", valor, this.numeroConta);
-
-        System.out.printf(
-            "Transferencia Pix de R$ %.2f para %s realizado com sucesso!%n", 
-                valor, contaDestino.numeroConta);
     }
 
     public void exibirInformacoes() {
