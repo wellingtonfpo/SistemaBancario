@@ -14,9 +14,6 @@ public class Banco {
 
     public void adicionarConta(Conta conta) {
         contas.add(conta);
-        System.out.printf("Conta criada com sucesso!");
-        System.out.printf(" Número: %s%n", conta.getNumeroConta());
-        System.out.printf(" Titular: %s%n", conta.getTitular());
     }
 
     public Conta buscarConta(String numeroDaConta) {
